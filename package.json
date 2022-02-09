@@ -1,0 +1,29 @@
+{
+  "name": "naptime_vite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "vue": "^3.2.29"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "prettier": "^1.19.1",
+    "sass": "^1.49.7",
+    "vite": "^2.8.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-windicss": "^1.7.0",
+    "windicss": "^3.4.3"
+  }
+}
