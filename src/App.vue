@@ -56,7 +56,7 @@ const setText = () => {
 
 // 计算主题
 const calcTheme = () => {
-  const getUpStr = dayjs().format('YYYY-MM-DD') + '13:30:30'
+  const getUpStr = dayjs().format('YYYY-MM-DD') + '13:30:00'
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
   theme.value = isAfter ? 'light' : 'dark'
 }
