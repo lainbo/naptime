@@ -56,7 +56,7 @@ const setText = () => {
 
 // 计算主题
 const calcTheme = () => {
-  const getUpStr = dayjs().format('YYYY-MM-DD') + '13:30:00'
+  const getUpStr = dayjs().format('YYYY-MM-DD') + '13:50:46'
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
   theme.value = isAfter ? 'light' : 'dark'
 }
@@ -92,19 +92,19 @@ onMounted(() => {
 @property --houdini-colorA {
   syntax: '<color>';
   inherits: false;
-  initial-value: #29323c;
+  initial-value: #323232;
 }
 
 @property --houdini-colorB {
   syntax: '<color>';
   inherits: false;
-  initial-value: #485563;
+  initial-value: #3f3f3f;
 }
 
 @property --houdini-colorC {
   syntax: '<color>';
   inherits: false;
-  initial-value: #000000;
+  initial-value: #1c1c1c;
 }
 .container_cus {
   text-shadow: -1px 4px 6px #00000030;
@@ -117,20 +117,23 @@ onMounted(() => {
 }
 
 .dark {
-  --houdini-colorA: #000000;
-  --houdini-colorB: #29323c;
-  --houdini-colorC: #485563;
-  background-image: linear-gradient(
-    to top,
-    var(--houdini-colorA) 0%,
-    var(--houdini-colorB) 0.1%,
-    var(--houdini-colorC) 100%
-  );
+  --houdini-colorA: #323232;
+  --houdini-colorB: #3f3f3f;
+  --houdini-colorC: #1c1c1c;
+
+  background: linear-gradient(
+      to bottom,
+      var(--houdini-colorA) 0%,
+      var(--houdini-colorB) 40%,
+      var(--houdini-colorC) 150%
+    ),
+    linear-gradient(to top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.25) 200%);
+  background-blend-mode: multiply;
 }
 
 .light {
-  --houdini-colorA: #7085b6;
-  --houdini-colorB: #87a7d9;
+  --houdini-colorA: #6991c7;
+  --houdini-colorB: #a3bded;
   --houdini-colorC: #def3f8;
   background-image: linear-gradient(
     45deg,
