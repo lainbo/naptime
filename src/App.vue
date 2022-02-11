@@ -57,8 +57,10 @@ const setText = () => {
 const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
 // 计算主题
 const calcTheme = () => {
+  // 校验localStorage中的时间是否正确，不正确则设为默认时间
+  const defaultTime = '13:30:00'
   const time = localStorage.getItem('LOCALTIME')
-  !reg.test(time) && localStorage.setItem('LOCALTIME', '13:30:00')
+  !reg.test(time) && localStorage.setItem('LOCALTIME', defaultTime)
   const getUpStr = dayjs().format('YYYY-MM-DD') + time
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
   theme.value = isAfter ? 'light' : 'dark'
@@ -75,7 +77,6 @@ const setDate = () => {
 
   // 解决指针跳顿问题，在发生跳顿的角度值处，将 CSS 的 `transition` 属性去掉
   secTransition.value = secondDeg.value === 0 ? 'all 0s' : 'all 0.05s cubic-bezier(0.9, 0.54, 0.26, 1.68)'
-
   minTransition.value = minDeg.value === 0 ? 'all 0s' : 'all 0.1s cubic-bezier(0.9, 0.54, 0.26, 1.68)'
 }
 
@@ -86,12 +87,13 @@ const renderTime = () => {
   calcTheme()
 }
 onMounted(() => {
+  // 检测是否有LocalStorage，没有则设置
   const localTime = localStorage.getItem('LOCALTIME')
   if (!localTime || reg.test(localTime)) {
     useStorage('LOCALTIME', '13:30:00')
   }
   renderTime()
-  timer.value = setInterval(() => renderTime(), 100)
+  timer.value = setInterval(() => renderTime(), 1000)
 })
 </script>
 
