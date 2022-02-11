@@ -28,6 +28,7 @@
 
 <script setup>
 import dayjs from 'dayjs'
+import { useStorage } from '@vueuse/core'
 import { ref, onMounted } from 'vue'
 const dateStr = ref('') // 日期的文字
 const timeStr = ref('') // 时间的文字
@@ -53,10 +54,12 @@ const setText = () => {
   dateStr.value = `${dayjs().format('MM月DD日')} · ${weekMap.get(dayjs().day())}`
   timeStr.value = dayjs().format('HH:mm:ss')
 }
-
+const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
 // 计算主题
 const calcTheme = () => {
-  const getUpStr = dayjs().format('YYYY-MM-DD') + '13:50:46'
+  const time = localStorage.getItem('LOCALTIME')
+  !reg.test(time) && localStorage.setItem('LOCALTIME', '13:30:00')
+  const getUpStr = dayjs().format('YYYY-MM-DD') + time
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
   theme.value = isAfter ? 'light' : 'dark'
 }
@@ -83,6 +86,10 @@ const renderTime = () => {
   calcTheme()
 }
 onMounted(() => {
+  const localTime = localStorage.getItem('LOCALTIME')
+  if (!localTime || reg.test(localTime)) {
+    useStorage('LOCALTIME', '13:30:00')
+  }
   renderTime()
   timer.value = setInterval(() => renderTime(), 100)
 })
