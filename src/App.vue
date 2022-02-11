@@ -158,11 +158,11 @@ onMounted(() => {
 .date-box,
 .time-box {
   transition: all 0.2s ease;
-  @apply text-140px select-none leading-normal text-center;
+  @apply text-150px select-none leading-normal text-center;
 }
 
 .time-box {
-  @apply text-180px mr-70px leading-normal;
+  @apply text-180px mr-70px leading-normal w-740px;
 }
 
 /* 时钟部分 */
