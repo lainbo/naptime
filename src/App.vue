@@ -30,15 +30,8 @@
 import dayjs from 'dayjs'
 import { useStorage } from '@vueuse/core'
 import { ref, onMounted } from 'vue'
-const dateStr = ref('') // 日期的文字
-const timeStr = ref('') // 时间的文字
-const secondDeg = ref(0) // 秒针转动角度
-const minDeg = ref(0) // 分针转动角度
-const hourDeg = ref(0) // 时针转动角度
-const secTransition = ref('') // 秒针transition值
-const minTransition = ref('') // 分针transition值
-const theme = ref('') // 主题
-const timer = ref(null)
+
+const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/ // 校验时间格式的正则
 const weekMap = new Map([
   [0, '周日'],
   [1, '周一'],
@@ -50,23 +43,35 @@ const weekMap = new Map([
 ])
 
 // 计算文字
+const dateStr = ref('') // 日期的文字
+const timeStr = ref('') // 时间的文字
+
 const setText = () => {
   dateStr.value = `${dayjs().format('MM月DD日')} · ${weekMap.get(dayjs().day())}`
   timeStr.value = dayjs().format('HH:mm:ss')
 }
-const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
+
 // 计算主题
+const theme = ref('') // 主题
+const defaultTime = '13:30:00' // 默认更换主题时间
+const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
+
 const calcTheme = () => {
-  // 校验localStorage中的时间是否正确，不正确则设为默认时间
-  const defaultTime = '13:30:00'
-  const time = localStorage.getItem('LOCALTIME')
-  !reg.test(time) && localStorage.setItem('LOCALTIME', defaultTime)
-  const getUpStr = dayjs().format('YYYY-MM-DD') + time
+  if (!reg.test(localTime.value)) {
+    localStorage.setItem('LOCALTIME', defaultTime)
+  }
+  const getUpStr = dayjs().format('YYYY-MM-DD') + localTime.value
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
   theme.value = isAfter ? 'light' : 'dark'
 }
 
 // 计算指针转动角度
+const secondDeg = ref(0) // 秒针转动角度
+const minDeg = ref(0) // 分针转动角度
+const hourDeg = ref(0) // 时针转动角度
+const secTransition = ref('') // 秒针transition值
+const minTransition = ref('') // 分针transition值
+
 const setDate = () => {
   const second = dayjs().second()
   const min = dayjs().minute()
@@ -86,12 +91,10 @@ const renderTime = () => {
   setDate()
   calcTheme()
 }
+const timer = ref(null) // 定时器
 onMounted(() => {
-  // 检测是否有LocalStorage，没有则设置
-  const localTime = localStorage.getItem('LOCALTIME')
-  if (!localTime || reg.test(localTime)) {
-    useStorage('LOCALTIME', '13:30:00')
-  }
+  // 如果Local中的格式不对则恢复默认值
+  !reg.test(localTime.value) && localStorage.setItem('LOCALTIME', defaultTime)
   renderTime()
   timer.value = setInterval(() => renderTime(), 100)
 })
