@@ -93,7 +93,7 @@ onMounted(() => {
     useStorage('LOCALTIME', '13:30:00')
   }
   renderTime()
-  timer.value = setInterval(() => renderTime(), 1000)
+  timer.value = setInterval(() => renderTime(), 100)
 })
 </script>
 
