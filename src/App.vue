@@ -59,6 +59,7 @@ const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
 const calcTheme = () => {
   if (!reg.test(localTime.value)) {
     localStorage.setItem('LOCALTIME', defaultTime)
+    localTime.value = defaultTime
   }
   const getUpStr = dayjs().format('YYYY-MM-DD') + localTime.value
   const isAfter = dayjs().isAfter(dayjs(getUpStr))
