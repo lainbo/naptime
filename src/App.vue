@@ -1,7 +1,7 @@
 <template>
   <div class="container_cus bg-base" :class="theme">
     <div class="date-box">{{ dateStr }}</div>
-    <div class="bottom_wrapper">
+    <div class="bottom_wrapper space-x-70px">
       <div class="time-box">{{ timeStr }}</div>
       <div class="clock">
         <div class="clock-face">
@@ -163,7 +163,7 @@ onMounted(() => {
 }
 
 .time-box {
-  @apply text-180px mr-70px leading-normal w-740px;
+  @apply text-180px leading-normal w-740px;
 }
 
 /* 时钟部分 */
