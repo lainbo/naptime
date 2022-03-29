@@ -159,11 +159,13 @@ onMounted(() => {
 .date-box,
 .time-box {
   transition: all 0.2s ease;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
   @apply text-150px select-none leading-normal text-center;
 }
 
 .time-box {
-  @apply text-180px leading-normal w-740px;
+  @apply text-180px leading-normal;
 }
 
 /* 时钟部分 */
