@@ -28,8 +28,6 @@
 
 <script setup>
 import dayjs from 'dayjs'
-import { useStorage } from '@vueuse/core'
-import { ref, onMounted } from 'vue'
 
 const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/ // 校验时间格式的正则
 const weekMap = new Map([
@@ -58,7 +56,6 @@ const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
 
 const calcTheme = () => {
   if (!reg.test(localTime.value)) {
-    localStorage.setItem('LOCALTIME', defaultTime)
     localTime.value = defaultTime
   }
   const getUpStr = dayjs().format('YYYY-MM-DD') + localTime.value
@@ -95,7 +92,7 @@ const renderTime = () => {
 const timer = ref(null) // 定时器
 onMounted(() => {
   // 如果Local中的格式不对则恢复默认值
-  !reg.test(localTime.value) && localStorage.setItem('LOCALTIME', defaultTime)
+  !reg.test(localTime.value) && (localTime.value = defaultTime)
   renderTime()
   timer.value = setInterval(() => renderTime(), 100)
 })
