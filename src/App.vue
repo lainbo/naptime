@@ -54,7 +54,7 @@ const theme = ref('') // 主题
 const defaultTime = '13:30:00' // 默认更换主题时间
 const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
 
-const calcTheme = () => {
+function calcTheme() {
   if (!reg.test(localTime.value)) {
     localTime.value = defaultTime
   }
@@ -70,7 +70,7 @@ const hourDeg = ref(0) // 时针转动角度
 const secTransition = ref('') // 秒针transition值
 const minTransition = ref('') // 分针transition值
 
-const setDate = () => {
+function setDate() {
   const second = dayjs().second()
   const min = dayjs().minute()
   const hour = dayjs().hour()
@@ -83,19 +83,14 @@ const setDate = () => {
   minTransition.value = minDeg.value === 0 ? 'all 0s' : 'all 0.1s cubic-bezier(0.9, 0.54, 0.26, 1.68)'
 }
 
-// 页面数据初始化
-const renderTime = () => {
+// 页面数据计算
+function renderTime() {
   setText()
   setDate()
   calcTheme()
 }
-const timer = ref(null) // 定时器
-onMounted(() => {
-  // 如果Local中的格式不对则恢复默认值
-  !reg.test(localTime.value) && (localTime.value = defaultTime)
-  renderTime()
-  timer.value = setInterval(() => renderTime(), 100)
-})
+
+useRafFn(renderTime)
 </script>
 
 <style lang="scss" scoped>
