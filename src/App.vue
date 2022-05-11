@@ -10,14 +10,14 @@
             class="hand min-hand"
             :style="{
               transform: `rotate(${minDeg}deg)`,
-              transition: minTransition,
+              transition: minTransition
             }"
           ></div>
           <div
             class="hand second-hand"
             :style="{
               transform: `rotate(${secondDeg}deg)`,
-              transition: secTransition,
+              transition: secTransition
             }"
           ></div>
         </div>
@@ -37,7 +37,7 @@ const weekMap = new Map([
   [3, '周三'],
   [4, '周四'],
   [5, '周五'],
-  [6, '周六'],
+  [6, '周六']
 ])
 
 // 计算文字
@@ -137,8 +137,8 @@ useRafFn(renderTime)
 }
 
 .light {
-  --houdini-colorA: #6991c7;
-  --houdini-colorB: #a3bded;
+  --houdini-colorA: #7085b6;
+  --houdini-colorB: #87a7d9;
   --houdini-colorC: #def3f8;
   background-image: linear-gradient(
     45deg,
