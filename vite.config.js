@@ -5,7 +5,7 @@ import WindiCSS from 'vite-plugin-windicss'
 import viteCompression from 'vite-plugin-compression'
 import AutoImport from 'unplugin-auto-import/vite'
 export default defineConfig({
-  base: './',
+  base: '/naptime/',
   plugins: [
     vue(),
     AutoImport({
