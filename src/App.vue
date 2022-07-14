@@ -1,5 +1,5 @@
 <template>
-  <div class="container_cus bg-base" :class="theme">
+  <div class="container_cus bg-base" :class="theme" :style="{ cursor: idle && isFullscreen ? 'none' : 'default' }" @click="changeFullScreen">
     <div class="date-box">{{ dateStr }}</div>
     <div class="bottom_wrapper space-x-70px">
       <div class="time-box">{{ timeStr }}</div>
@@ -28,6 +28,8 @@
 
 <script setup>
 import dayjs from 'dayjs'
+const { isFullscreen, toggle } = useFullscreen()
+const { idle } = useIdle(2 * 1000) // 闲置时间2s
 
 const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/ // 校验时间格式的正则
 const weekMap = new Map([
@@ -39,6 +41,11 @@ const weekMap = new Map([
   [5, '周五'],
   [6, '周六']
 ])
+
+// 全屏切换
+function changeFullScreen() {
+  toggle()
+}
 
 // 计算文字
 const dateStr = ref('') // 日期的文字
@@ -53,7 +60,7 @@ const setText = () => {
 const theme = ref('') // 主题
 const defaultTime = '13:30:00' // 默认更换主题时间
 const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
-
+// 给这个加闲了隐藏鼠标，Vite3
 function calcTheme() {
   if (!reg.test(localTime.value)) {
     localTime.value = defaultTime
