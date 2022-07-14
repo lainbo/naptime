@@ -1,4 +1,11 @@
-html {
-  font-family: 'HarmonyOS Sans SC', 'HarmonyOS Sans', HarmonyOS, -apple-system, Segoe UI Emoji, Microsoft Yahei,
-    sans-serif;
+@font-face {
+  font-display: swap;
+  font-family: 'HarmonyOS';
+  src: url('https://vkceyugu.cdn.bspapp.com/VKCEYUGU-be392405-5b88-4143-ad6b-f155b106ab85/d5d507cc-3a4a-40b2-ad94-fa6bead114bb.woff2') format('woff2');
+}
+
+html,
+body {
+  font-family: 'HarmonyOS Sans SC', 'HarmonyOS', 'NanumGothic', system-ui,
+    —apple-system, Segoe UI, Rototo, Helvetica, Arial, sans-serif !important;
 }

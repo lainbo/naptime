@@ -1,5 +1,10 @@
 <template>
-  <div class="container_cus bg-base" :class="theme" :style="{ cursor: idle && isFullscreen ? 'none' : 'default' }" @click="changeFullScreen">
+  <div
+    class="container_cus bg-base"
+    :class="theme"
+    :style="{ cursor: idle && isFullscreen ? 'none' : 'default' }"
+    @click="changeFullScreen"
+  >
     <div class="date-box">{{ dateStr }}</div>
     <div class="bottom_wrapper space-x-70px">
       <div class="time-box">{{ timeStr }}</div>
