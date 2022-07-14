@@ -125,7 +125,7 @@ useRafFn(renderTime)
 }
 .container_cus {
   text-shadow: -1px 4px 6px #00000030;
-  @apply w-screen h-screen flex items-center justify-center flex-col text-white;
+  --at-apply: w-screen h-screen flex-c flex-col text-white;
 }
 
 .bg-base {
@@ -165,41 +165,41 @@ useRafFn(renderTime)
   transition: all 0.2s ease;
   font-feature-settings: 'tnum';
   font-variant-numeric: tabular-nums;
-  @apply text-150px select-none leading-normal text-center;
+  --at-apply: text-150px select-none leading-normal text-center;
 }
 
 .time-box {
-  @apply text-180px leading-normal;
+  --at-apply: text-180px leading-normal;
 }
 
 /* 时钟部分 */
 .clock {
-  @apply w-240px h-240px my-0 mx-auto relative rounded-full;
+  --at-apply: w-240px h-240px my-0 mx-auto relative rounded-full;
   border: 8px solid #fff;
   transform: rotate(90deg);
   box-shadow: 0 1px 8px #2222224d, inset 0 1px 8px #2222224d;
 }
 
 .clock-face {
-  @apply relative w-full h-full;
+  --at-apply: relative w-full h-full;
 }
 
 .hand {
-  @apply w-1/2 bg-white absolute top-1/2 right-1/2;
+  --at-apply: w-1/2 bg-white absolute top-1/2 right-1/2;
   transform-origin: 100% 50%;
   transition-timing-function: cubic-bezier(0.9, 0.54, 0.26, 1.68);
   box-shadow: 0 1px 8px #2222224d;
 }
 
 .clock-face:after {
-  @apply w-12px h-12px top-1/2 left-1/2 absolute block bg-white z-4 rounded-full;
+  --at-apply: w-12px h-12px top-1/2 left-1/2 absolute block bg-white z-4 rounded-full;
   content: '';
   transform: translate(-50%, -50%);
   box-shadow: 0 0 10px -3px #a2a2a2;
 }
 
 .hour-hand {
-  @apply w-0 h-0 absolute bg-white z-1 top-1/2 left-1/2;
+  --at-apply: w-0 h-0 absolute bg-white z-1 top-1/2 left-1/2;
   margin: -4px 0 -4px -25%;
   padding: 4px 0 4px 25%;
   transform-origin: 100% 50%;
@@ -207,17 +207,17 @@ useRafFn(renderTime)
 }
 
 .min-hand {
-  @apply z-2 w-5/12 h-5px -mt-2.5px;
+  --at-apply: z-2 w-5/12 h-5px -mt-2.5px;
   border-radius: 4px 0 0 4px;
   transition: all 0.1s cubic-bezier(0.9, 0.54, 0.26, 1.68);
 }
 
 .second-hand {
-  @apply h-2px w-2/5 -mt-1px z-3 bg-white;
+  --at-apply: h-2px w-2/5 -mt-1px z-3 bg-white;
   transition: all 0.05s cubic-bezier(0.9, 0.54, 0.26, 1.68);
 }
 
 .bottom_wrapper {
-  @apply flex items-center;
+  --at-apply: flex items-center;
 }
 </style>

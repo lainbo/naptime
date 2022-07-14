@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
-import WindiCSS from 'vite-plugin-windicss'
 import viteCompression from 'vite-plugin-compression'
 import AutoImport from 'unplugin-auto-import/vite'
+import Unocss from 'unocss/vite'
 export default defineConfig({
   base: './',
   plugins: [
@@ -16,7 +16,7 @@ export default defineConfig({
       },
       imports: ['vue', '@vueuse/core']
     }),
-    WindiCSS(),
+    Unocss(),
     viteCompression()
   ],
   resolve: {
