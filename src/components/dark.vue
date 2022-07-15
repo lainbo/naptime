@@ -1,171 +1,165 @@
 <template>
-  <div class="aaa" :data-theme="themec">
-    <div class="clock">
-      <div class="hour"></div>
-      <div class="min"></div>
-      <div class="sec"></div>
+  <div ref="mainWrapper" class="main_wrapper select-none flex-c" :class="currentTheme">
+    <div text="150px #555 dark:#f5f5f5">
+      {{ dateStr }}
     </div>
-    <div class="switch-cont">
-      <button class="switch-btn">Light</button>
+    <section class="flex items-center space-x-70px">
+      <div text="180px #555 dark:#f5f5f5">
+        {{ currentTime }}
+      </div>
+      <div class="clock h-260px aspect-square flex-c rounded-full transition-all bg-cover">
+        <transition name="fade-in-standard">
+          <div v-show="currentTheme === 'light'" class="marker"></div>
+        </transition>
+        <div class="hour w-8em aspect-square" :style="{ transform: `rotateZ(${hAngle}deg)` }"></div>
+        <div class="min w-12em aspect-square" :style="{ transform: `rotateZ(${mAngle}deg)` }"></div>
+        <div class="sec w-13em aspect-square" :style="{ transform: `rotateZ(${sAngle}deg)` }"></div>
+      </div>
+    </section>
+    <div class="setting_wrapper fixed right-0 bottom-0 translate-y-100%">
+      <a-time-picker v-model="localTime" :allow-clear="false" style="width: 200px" />
     </div>
   </div>
 </template>
 
 <script setup>
-const themec = ref('dark')
-onMounted(() => {
-  const deg = 6
-  const hour = document.querySelector('.hour')
-  const min = document.querySelector('.min')
-  const sec = document.querySelector('.sec')
+import dayjs from 'dayjs'
+const currentTheme = ref('')
+const now = useNow()
+const hour = ref(now.value.getHours())
+const min = ref(now.value.getMinutes())
+const sec = ref(now.value.getSeconds())
+const dateStr = ref('')
+const currentTime = ref('')
+const mainWrapper = ref(null)
+const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/ // 校验时间格式的正则
+const defaultTime = '13:30:00' // 默认更换主题时间
+const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
 
-  const setClock = () => {
-    let day = new Date()
-    let hh = day.getHours() * 30
-    let mm = day.getMinutes() * deg
-    let ss = day.getSeconds() * deg
+// 监控时间，到点儿了自动切主题
+watchEffect(() => {
+  const getUpStr = `${useDateFormat(now, 'YYYY-MM-DD').value} ${localTime.value}`
+  const isAfter = dayjs().isAfter(dayjs(getUpStr))
+  currentTheme.value = isAfter ? 'light' : 'dark'
+})
 
-    hour.style.transform = `rotateZ(${hh + mm / 12}deg)`
-    min.style.transform = `rotateZ(${mm}deg)`
-    sec.style.transform = `rotateZ(${ss}deg)`
-  }
-
-  setClock()
-  setInterval(setClock, 1000)
-
-  const switchTheme = evt => {
-    const switchBtn = evt.target
-    if (switchBtn.textContent.toLowerCase() === 'light') {
-      switchBtn.textContent = 'dark'
-      themec.value = 'dark'
-    } else {
-      switchBtn.textContent = 'light'
-      document.documentElement.setAttribute('data-theme', 'light')
-      themec.value = 'light'
-    }
-  }
-
-  const switchModeBtn = document.querySelector('.switch-btn')
-  switchModeBtn.addEventListener('click', switchTheme, false)
-
-  let currentTheme = 'dark'
-
-  if (currentTheme) {
-    document.documentElement.setAttribute('data-theme', currentTheme)
-    switchModeBtn.textContent = currentTheme
+// 监控localStorage的里面值的合法性
+watchEffect(() => {
+  if (!reg.test(localTime.value)) {
+    localTime.value = defaultTime
   }
 })
+
+function renderTime() {
+  setClockFace()
+  setText()
+}
+
+// 时针角度
+const hAngle = computed(() => hour.value * 30 + mAngle.value / 12)
+// 分针角度
+const mAngle = computed(() => min.value * 6)
+// 秒针角度
+const sAngle = computed(() => sec.value * 6)
+
+// 设置表盘
+function setClockFace() {
+  hour.value = now.value.getHours()
+  min.value = now.value.getMinutes()
+  sec.value = now.value.getSeconds()
+}
+
+const weekMap = new Map([
+  [0, '周日'],
+  [1, '周一'],
+  [2, '周二'],
+  [3, '周三'],
+  [4, '周四'],
+  [5, '周五'],
+  [6, '周六']
+])
+
+function setText() {
+  const date = useDateFormat(now, 'MM月DD日').value
+  const week = weekMap.get(now.value.getDay())
+  dateStr.value = `${date} · ${week}`
+  currentTime.value = useDateFormat(now, 'HH:mm:ss').value
+}
+useRafFn(renderTime)
 </script>
 
 <style lang="scss" scoped>
-.aaa {
+.main_wrapper {
+  &.dark {
+    --main-bg-color: #1e1f26;
+    --main-text-color: #ccc;
+    --shadow-color: #0000004d;
+    --shadow: 0 -15px 15px rgba(255, 255, 255, 0.05), inset 0 -15px 15px rgba(255, 255, 255, 0.05),
+      0 15px 15px #0000004d, inset 0 15px 15px #0000004d;
+  }
+}
+.main_wrapper {
+  --at-apply: h-full flex flex-col items-center transition-all;
   --main-bg-color: #e4ebf5;
-  --main-text-color: #888888;
-}
-.aaa[data-theme='dark'] {
-  --main-bg-color: #1e1f26;
-  --main-text-color: #ccc;
-}
-.aaa {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
+  --main-text-color: #9baacf;
+  --shadow-color: #c8d0e7;
+  --shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #fff;
   background-color: var(--main-bg-color);
-  position: relative;
-  transition: all ease 0.2s;
+  text-shadow: -1px 4px 6px rgb(0 0 0 / 19%);
 }
 
 .clock {
-  min-height: 18em;
-  min-width: 18em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: var(--main-bg-color);
-  background-image: url('https://imvpn22.github.io/analog-clock/clock.png');
-  background-position: center center;
-  background-size: cover;
-  border-radius: 50%;
+  background-image: url('http://p0.ssl.qhmsg.com/t01d98352ceb686ac6b.png');
+  background-position: center;
   border: 4px solid var(--main-bg-color);
-  // 亮色下的影子颜色#c8d0e7
-  box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05), inset 0 -15px 15px rgba(255, 255, 255, 0.05),
-    0 15px 15px rgba(0, 0, 0, 0.3), inset 0 15px 15px rgba(0, 0, 0, 0.3);
-  transition: all ease 0.2s;
+  box-shadow: var(--shadow);
+  .marker {
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #fff;
+  }
 }
 .clock:before {
   content: '';
-  height: 0.75rem;
-  width: 0.75rem;
+  --at-apply: w-12px aspect-square absolute rounded-full z-1000 transition-all;
   background-color: var(--main-text-color);
   border: 2px solid var(--main-bg-color);
-  position: absolute;
-  border-radius: 50%;
-  z-index: 1000;
-  transition: all ease 0.2s;
 }
+
 .hour,
 .min,
 .sec {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  border-radius: 50%;
-}
-.hour {
-  height: 10em;
-  width: 10em;
-}
-.hour:before {
-  content: '';
-  position: absolute;
-  height: 50%;
-  width: 6px;
-  background-color: var(--main-text-color);
-  border-radius: 6px;
-}
-.min {
-  height: 12em;
-  width: 12em;
-}
-.min:before {
-  content: '';
-  height: 50%;
-  width: 4px;
-  background-color: var(--main-text-color);
-  border-radius: 4px;
-}
-.sec {
-  height: 13em;
-  width: 13em;
-}
-.sec:before {
-  content: '';
-  height: 60%;
-  width: 2px;
-  background-color: #f00;
-  border-radius: 2px;
+  --at-apply: absolute rounded-full flex justify-center;
+  &::before {
+    content: '';
+  }
 }
 
-/* Style for theme switch btn */
-.switch-cont {
-  margin: 2em auto;
-  /* position: absolute; */
-  bottom: 0;
+.hour:before {
+  --at-apply: absolute h-50% w-6px rounded-6px;
+  background-color: var(--main-text-color);
 }
-.switch-cont .switch-btn {
-  font-family: monospace;
-  text-transform: uppercase;
-  outline: none;
-  padding: 0.5rem 1rem;
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
-  border: 1px solid var(--main-text-color);
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all ease 0.3s;
+
+.min:before {
+  --at-apply: h-50% w-4px rounded-4px;
+  background-color: var(--main-text-color);
+}
+
+.sec:before {
+  --at-apply: h-60% w-2px bg-[#6d5dfc] rounded-2px dark:bg-[#f00];
+}
+.setting_wrapper {
+  --at-apply: transition-all ;
+  &:hover {
+    --at-apply: transition-all translate-y-0;
+  }
+  &::before {
+    transform: scale();
+    content: '';
+    --at-apply: absolute transform-origin-rb scale-x-150 scale-y-200  w-full h-full bg-transparent;
+  }
 }
 </style>

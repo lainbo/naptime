@@ -3,7 +3,10 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import viteCompression from 'vite-plugin-compression'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import Unocss from 'unocss/vite'
+import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+
 export default defineConfig({
   base: './',
   plugins: [
@@ -17,6 +20,9 @@ export default defineConfig({
       imports: ['vue', '@vueuse/core']
     }),
     Unocss(),
+    Components({
+      resolvers: [ArcoResolver()]
+    }),
     viteCompression()
   ],
   resolve: {
