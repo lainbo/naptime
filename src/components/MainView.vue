@@ -111,7 +111,7 @@ useRafFn(renderTime)
 
 .clock {
   background-color: var(--main-bg-color);
-  background-image: url('http://p0.ssl.qhmsg.com/t01d98352ceb686ac6b.png');
+  background-image: url('https://p0.ssl.qhmsg.com/t01d98352ceb686ac6b.png');
   background-position: center;
   border: 4px solid var(--main-bg-color);
   box-shadow: var(--shadow);
