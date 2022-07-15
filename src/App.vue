@@ -1,11 +1,9 @@
 <template>
   <div class="h-screen">
-    <Dark />
+    <MainView />
   </div>
 </template>
 
-<script setup>
-import Dark from './components/dark.vue'
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>
