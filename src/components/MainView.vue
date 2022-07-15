@@ -1,5 +1,11 @@
 <template>
-  <div ref="mainWrapper" class="main_wrapper select-none flex-c overflow-hidden" :class="currentTheme">
+  <div
+    ref="mainWrapper"
+    class="main_wrapper select-none flex-c overflow-hidden"
+    :class="currentTheme"
+    :style="{ cursor: idle && isFullscreen ? 'none' : 'default' }"
+    @click="changeFullScreen"
+  >
     <div text="150px #555 dark:#f5f5f5">
       {{ dateStr }}
     </div>
@@ -24,6 +30,10 @@
 
 <script setup>
 import dayjs from 'dayjs'
+const mainWrapper = ref()
+const { isFullscreen, toggle } = useFullscreen()
+const { idle } = useIdle(2 * 1000) // 闲置时间2s
+
 const currentTheme = ref('')
 const now = useNow()
 const hour = ref(now.value.getHours())
@@ -31,12 +41,14 @@ const min = ref(now.value.getMinutes())
 const sec = ref(now.value.getSeconds())
 const dateStr = ref('')
 const currentTime = ref('')
-const mainWrapper = ref()
 const settingRef = ref()
 const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/ // 校验时间格式的正则
 const defaultTime = '13:30:00' // 默认更换主题时间
 const localTime = useStorage('LOCALTIME', defaultTime) // 响应式LocalStorage
-
+// 全屏切换
+function changeFullScreen() {
+  toggle()
+}
 // 监控时间，到点儿了自动切主题
 watchEffect(() => {
   const getUpStr = `${useDateFormat(now, 'YYYY-MM-DD').value} ${localTime.value}`
