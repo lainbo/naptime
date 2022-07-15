@@ -23,3 +23,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #b6b7b9;
 }
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
