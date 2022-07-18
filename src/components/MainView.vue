@@ -1,6 +1,5 @@
 <template>
   <div
-    ref="mainWrapper"
     class="main_wrapper select-none flex-c overflow-hidden"
     :class="currentTheme"
     :style="{ cursor: idle && isFullscreen ? 'none' : 'default' }"
@@ -30,7 +29,6 @@
 
 <script setup>
 import dayjs from 'dayjs'
-const mainWrapper = ref()
 const { isFullscreen, toggle } = useFullscreen()
 const { idle } = useIdle(2 * 1000) // 闲置时间2s
 
