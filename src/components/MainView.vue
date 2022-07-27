@@ -21,7 +21,7 @@
         <div class="sec w-13em aspect-square" :style="{ transform: `rotateZ(${sAngle}deg)` }"></div>
       </div>
     </section>
-    <div ref="settingRef" class="setting_wrapper fixed right-0 bottom-0 translate-y-100%">
+    <div ref="settingRef" class="setting_wrapper fixed right-0 bottom-0 translate-y-100%" @click.stop="() => {}">
       <a-time-picker v-model="localTime" :allow-clear="false" style="width: 200px" :popup-container="settingRef" />
     </div>
   </div>

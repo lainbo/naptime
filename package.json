@@ -10,24 +10,24 @@
   },
   "dependencies": {
     "@vueuse/core": "^8.9.4",
-    "dayjs": "^1.11.3",
+    "dayjs": "^1.11.4",
     "lodash-es": "^4.17.21",
     "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@arco-design/web-vue": "^2.33.0",
-    "@unocss/reset": "^0.44.3",
-    "@vitejs/plugin-vue": "^3.0.0",
+    "@arco-design/web-vue": "^2.33.1",
+    "@unocss/reset": "^0.44.7",
+    "@vitejs/plugin-vue": "^3.0.1",
     "@vue/eslint-config-prettier": "^7.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.2.0",
+    "eslint-plugin-vue": "^9.3.0",
     "prettier": "^2.7.1",
-    "sass": "^1.53.0",
-    "unocss": "^0.44.3",
+    "sass": "^1.54.0",
+    "unocss": "^0.44.7",
     "unplugin-auto-import": "^0.8.8",
-    "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.0",
+    "unplugin-vue-components": "^0.21.2",
+    "vite": "^3.0.3",
     "vite-plugin-compression": "^0.5.1"
   }
 }
