@@ -110,7 +110,7 @@ useRafFn(renderTime)
   }
 }
 .main_wrapper {
-  --at-apply: h-full flex flex-col items-center transition-all;
+  @apply h-full flex flex-col items-center transition-all;
   --main-bg-color: #e4ebf5;
   --main-text-color: #9baacf;
   --shadow-color: #c8d0e7;
@@ -135,7 +135,7 @@ useRafFn(renderTime)
 }
 .clock:before {
   content: '';
-  --at-apply: w-12px aspect-square absolute rounded-full z-1000 transition-all;
+  @apply w-12px aspect-square absolute rounded-full z-1000 transition-all;
   background-color: var(--main-text-color);
   border: 2px solid var(--main-bg-color);
 }
@@ -143,34 +143,34 @@ useRafFn(renderTime)
 .hour,
 .min,
 .sec {
-  --at-apply: absolute rounded-full flex justify-center;
+  @apply absolute rounded-full flex justify-center;
   &::before {
     content: '';
   }
 }
 
 .hour:before {
-  --at-apply: absolute h-50% w-6px rounded-6px;
+  @apply absolute h-50% w-6px rounded-6px;
   background-color: var(--main-text-color);
 }
 
 .min:before {
-  --at-apply: h-50% w-4px rounded-4px;
+  @apply h-50% w-4px rounded-4px;
   background-color: var(--main-text-color);
 }
 
 .sec:before {
-  --at-apply: h-60% w-2px bg-[#6d5dfc] rounded-2px dark:bg-[#f00];
+  @apply h-60% w-2px bg-[#6d5dfc] rounded-2px dark:bg-[#f00];
 }
 .setting_wrapper {
-  --at-apply: transition-all ;
+  @apply transition-all;
   &:hover {
-    --at-apply: transition-all translate-y-0;
+    @apply transition-all translate-y-0;
   }
   &::before {
     transform: scale();
     content: '';
-    --at-apply: absolute transform-origin-rb scale-x-150 scale-y-200  w-full h-full bg-transparent;
+    @apply absolute transform-origin-rb scale-x-150 scale-y-200  w-full h-full bg-transparent;
   }
 }
 </style>
