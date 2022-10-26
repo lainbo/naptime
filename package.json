@@ -6,28 +6,29 @@
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint --fix --ext .js,.vue src",
-    "up": "taze major -I"
+    "up": "taze major -I",
+    "stable-up": "taze -w -I"
   },
   "dependencies": {
-    "@vueuse/core": "^9.3.0",
-    "dayjs": "^1.11.5",
+    "@vueuse/core": "^9.4.0",
+    "dayjs": "^1.11.6",
     "lodash-es": "^4.17.21",
     "vue": "^3.2.41"
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.37.4",
-    "@unocss/reset": "^0.45.29",
+    "@unocss/reset": "^0.45.30",
     "@vitejs/plugin-vue": "^3.1.2",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.25.0",
+    "eslint": "^8.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.6.0",
     "prettier": "^2.7.1",
     "sass": "^1.55.0",
     "taze": "^0.8.2",
-    "unocss": "^0.45.29",
-    "unplugin-auto-import": "^0.11.2",
-    "unplugin-vue-components": "^0.22.8",
+    "unocss": "^0.45.30",
+    "unplugin-auto-import": "^0.11.4",
+    "unplugin-vue-components": "^0.22.9",
     "vite": "^3.1.8",
     "vite-plugin-compression": "^0.5.1"
   }
