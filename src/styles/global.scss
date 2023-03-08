@@ -1,13 +1,8 @@
-@font-face {
-  font-display: swap;
-  font-family: 'HarmonyOS';
-  src: url('https://vkceyugu.cdn.bspapp.com/VKCEYUGU-44af3f84-786a-4383-9b43-d2bdfa949d80/28f1ffe1-eb4a-4179-a40e-280bc06493b7.woff2') format('woff2');
-}
-
+@import url('https://fast-naptime.netlify.app/font/HarmonyOS_Font_Regular/regular.css');
 html,
 body {
-  font-family: 'HarmonyOS Sans SC', 'HarmonyOS', 'NanumGothic', system-ui,
-    —apple-system, Segoe UI, Rototo, Helvetica, Arial, sans-serif !important;
+  font-family: 'HarmonyOS Sans SC', 'HarmonyOS_Regular', 'NanumGothic', system-ui, —apple-system, Segoe UI, Rototo,
+    Helvetica, Arial, sans-serif !important;
 }
 
 ::-webkit-scrollbar {
