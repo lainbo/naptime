@@ -1,4 +1,3 @@
-/* 用正则搜索(?<=src:\s*url\()['"]?([^()'"]+)['"]?(?=\)) */
 @font-face {
   font-family: 'HarmonyOS_Medium';
   font-style: normal;
