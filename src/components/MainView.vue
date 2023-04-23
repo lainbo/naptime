@@ -34,9 +34,6 @@ const { idle } = useIdle(2 * 1000) // 闲置时间2s
 
 const currentTheme = ref('')
 const now = useNow()
-const hour = ref(now.value.getHours())
-const min = ref(now.value.getMinutes())
-const sec = ref(now.value.getSeconds())
 const dateStr = ref('')
 const currentTime = ref('')
 const settingRef = ref()
@@ -61,42 +58,37 @@ watchEffect(() => {
   }
 })
 
-function renderTime() {
-  setClockFace()
-  setText()
-}
-
 // 时针角度
-const hAngle = computed(() => hour.value * 30 + mAngle.value / 12)
+const hAngle = computed(() => {
+  const hour = now.value.getHours()
+  const min = now.value.getMinutes()
+  const sec = now.value.getSeconds()
+  return (hour % 12) * 30 + min * 0.5 + sec * (0.5 / 60)
+})
+
 // 分针角度
-const mAngle = computed(() => min.value * 6)
+const mAngle = computed(() => {
+  const min = now.value.getMinutes()
+  const sec = now.value.getSeconds()
+  return min * 6 + sec * 0.1
+})
+
 // 秒针角度
-const sAngle = computed(() => sec.value * 6)
-
-// 设置表盘
-function setClockFace() {
-  hour.value = now.value.getHours()
-  min.value = now.value.getMinutes()
-  sec.value = now.value.getSeconds()
-}
-
-const weekMap = new Map([
-  [0, '周日'],
-  [1, '周一'],
-  [2, '周二'],
-  [3, '周三'],
-  [4, '周四'],
-  [5, '周五'],
-  [6, '周六']
-])
+const sAngle = computed(() => {
+  const sec = now.value.getSeconds()
+  return sec * 6
+})
 
 function setText() {
-  const date = useDateFormat(now, 'MM月DD日').value
-  const week = weekMap.get(now.value.getDay())
-  dateStr.value = `${date} · ${week}`
-  currentTime.value = useDateFormat(now, 'HH:mm:ss').value
+  const date = useDateFormat(now, 'MM月DD日').value;
+  const formatter = new Intl.DateTimeFormat('zh-CN', { weekday: 'short' });
+  const week = formatter.format(now.value);
+  dateStr.value = `${date} · ${week}`;
+  currentTime.value = useDateFormat(now, 'HH:mm:ss').value;
 }
-useRafFn(renderTime)
+
+
+useRafFn(setText)
 </script>
 
 <style lang="scss" scoped>
