@@ -2,6 +2,7 @@
   "name": "naptime_vite",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
@@ -10,26 +11,26 @@
     "stable-up": "taze -w -I"
   },
   "dependencies": {
-    "@vueuse/core": "^10.0.2",
-    "dayjs": "^1.11.7",
+    "@vueuse/core": "^10.6.1",
+    "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21",
-    "vue": "^3.2.47"
+    "vue": "^3.3.9"
   },
   "devDependencies": {
-    "@arco-design/web-vue": "^2.45.2",
-    "@unocss/reset": "^0.51.5",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "@vue/eslint-config-prettier": "^7.1.0",
-    "eslint": "^8.39.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.11.0",
-    "prettier": "^2.8.7",
-    "sass": "^1.62.0",
-    "taze": "^0.9.1",
-    "unocss": "^0.51.5",
-    "unplugin-auto-import": "^0.15.3",
-    "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.3.1",
+    "@arco-design/web-vue": "^2.53.3",
+    "@unocss/reset": "^0.57.7",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-vue": "^9.18.1",
+    "prettier": "^3.1.0",
+    "sass": "^1.69.5",
+    "taze": "^0.12.2",
+    "unocss": "^0.57.7",
+    "unplugin-auto-import": "^0.17.1",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^5.0.3",
     "vite-plugin-compression": "^0.5.1"
   }
 }

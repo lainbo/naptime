@@ -80,13 +80,12 @@ const sAngle = computed(() => {
 })
 
 function setText() {
-  const date = useDateFormat(now, 'MM月DD日').value;
-  const formatter = new Intl.DateTimeFormat('zh-CN', { weekday: 'short' });
-  const week = formatter.format(now.value);
-  dateStr.value = `${date} · ${week}`;
-  currentTime.value = useDateFormat(now, 'HH:mm:ss').value;
+  const date = useDateFormat(now, 'MM月DD日').value
+  const formatter = new Intl.DateTimeFormat('zh-CN', { weekday: 'short' })
+  const week = formatter.format(now.value)
+  dateStr.value = `${date} · ${week}`
+  currentTime.value = useDateFormat(now, 'HH:mm:ss').value
 }
-
 
 useRafFn(setText)
 </script>
@@ -113,7 +112,7 @@ useRafFn(setText)
 
 .clock {
   background-color: var(--main-bg-color);
-  background-image: url('../assets/imgs/t01d98352ceb686ac6b.png');
+  background-image: url('../assets/imgs/t01d98352ceb686ac6b.webp');
   background-position: center;
   border: 4px solid var(--main-bg-color);
   box-shadow: var(--shadow);

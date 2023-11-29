@@ -35,5 +35,17 @@ export default defineConfig({
       '@styles': resolve(__dirname, './src/styles'),
       '@views': resolve(__dirname, './src/views')
     }
+  },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          dep: ['@vueuse/core', 'dayjs', 'lodash-es', 'vue'],
+          arco: ['@arco-design/web-vue']
+        }
+      }
+    }
   }
 })
